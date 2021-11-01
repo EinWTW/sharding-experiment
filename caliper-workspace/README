@@ -1,0 +1,29 @@
+# You need to install the following library first
+sudo apt-get install npm
+sudo apt install make
+sudo npm install -g node-gyp
+sudo apt-get install g++
+sudo apt install python2
+
+# Then set up env in caliper-workspace
+ npm init -y
+ npm install --only=prod @hyperledger/caliper-cli@0.4.2
+ npx caliper bind --caliper-bind-sut fabric:2.2
+
+# Test example
+ # Params:
+ # --caliper-workspace
+ # --caliper-networkconfig
+ # --caliper-benchconfig
+# 1)run command line
+ npx caliper launch manager --caliper-workspace ./ --caliper-networkconfig networks/networkConfig.yaml --caliper-benchconfig benchmarks/myAssetBenchmark.yaml --caliper-flow-only-test --caliper-fabric-gateway-enabled
+# or 2)you can simply run with scripts
+ ./noShard.sh
+ # Two workspaces required for interShard test
+ cp -r caliper-workspace caliper-workspaceB
+ ./interShard.sh 
+
+# Result
+You can check result by open report.html with browser.
+
+# Good luck!

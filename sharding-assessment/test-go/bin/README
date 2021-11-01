@@ -1,0 +1,2 @@
+# if test performance is not good, please build go test files to binaries before tests.
+# e.g. go build -o bin/ noShard.go

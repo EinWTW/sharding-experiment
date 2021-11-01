@@ -1,0 +1,33 @@
+test:
+    name: no-sharding-benchmark
+    description: test no sharding benchmark
+    workers:
+      type: local
+      number: 2
+    rounds:
+      - label: noSharding
+        description: No sharding benchmark
+        txDuration: 10
+        rateControl:
+          type: fixed-load
+          opts:
+            transactionLoad: 500
+        workload:
+          module: workload/noSharding.js
+          arguments:
+            accounts: 10000
+            contractId: sharding
+            prefixA: A
+            prefixB: B
+monitors:
+  resource:
+  - module: docker
+    options:
+      interval: 5
+      containers:
+      - all
+      charting:
+      bar:
+        metrics: [Memory(avg), CPU%(avg)]
+      polar:
+        metrics: [all]

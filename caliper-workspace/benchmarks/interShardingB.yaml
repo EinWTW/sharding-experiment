@@ -1,0 +1,26 @@
+test:
+    name: inter-sharding-benchmark
+    description: test inter sharding benchmark
+    workers:
+      type: local
+      number: 2
+    rounds:
+      - label: interShardingB
+        description: inter sharding benchmark
+        txDuration: 10
+        rateControl:
+          type: fixed-load
+          opts:
+            transactionLoad: 500
+        workload:
+          module: workload/interSharding.js
+          arguments:
+            accounts: 10000
+            contractId: sharding2
+            prefix: B
+monitors:
+  resource:
+  - module: process
+    options:
+      interval: 3
+      processes: [{ command: 'node', arguments: 'interSharding.js', multiOutput: 'avg' }]
